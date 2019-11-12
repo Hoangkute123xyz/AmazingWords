@@ -16,7 +16,7 @@ import com.hoangpro.amazingwords.morefunc.mAnimation;
 public class LoginActivity extends BaseActivity {
 
     private ImageView imgAmazing;
-    private ImageView imgWords;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
