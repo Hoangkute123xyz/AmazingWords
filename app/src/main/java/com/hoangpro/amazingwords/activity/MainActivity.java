@@ -9,7 +9,7 @@ import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
-
+//hello change
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
