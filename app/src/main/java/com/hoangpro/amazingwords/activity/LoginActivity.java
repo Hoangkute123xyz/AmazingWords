@@ -17,7 +17,6 @@ public class LoginActivity extends BaseActivity {
 
     private ImageView imgAmazing;
     private ImageView imgWords;
-    //test change
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

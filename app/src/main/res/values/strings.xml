@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Amazing Words</string>
+    <string name="play">Chơi</string>
+    <string name="rank">BXH</string>
+    <string name="info">Thông tin</string>
+    <string name="exit">Thoát</string>
 </resources>
