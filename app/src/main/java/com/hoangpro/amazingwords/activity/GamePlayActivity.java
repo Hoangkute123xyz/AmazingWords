@@ -8,8 +8,8 @@ import android.view.View;
 import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.base.BaseActivity;
 
-public class MainActivity extends BaseActivity {
-//hello change
+public class GamePlayActivity extends BaseActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +20,6 @@ public class MainActivity extends BaseActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        setContentView(R.layout.activity_main);
-    }
-
-    public void openGamePlay(View view) {
-        openActivity(GamePlayActivity.class, false);
+        setContentView(R.layout.activity_game_play);
     }
 }

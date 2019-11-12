@@ -83,6 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <Button
+        android:onClick="openGamePlay"
         android:textSize="32sp"
         android:textAllCaps="false"
         android:textColor="@color/white"

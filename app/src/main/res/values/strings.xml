@@ -4,4 +4,7 @@
     <string name="rank">BXH</string>
     <string name="info">Thông tin</string>
     <string name="exit">Thoát</string>
+    <string name="sortWords">Xếp chữ</string>
+    <string name="findWords">Tìm chữ</string>
+    <string name="chose_game_mode">Chọn chế độ chơi</string>
 </resources>
