@@ -32,10 +32,11 @@
     </LinearLayout>
 
     <Button
+        android:onClick="openSortWords"
         android:id="@+id/btnSortWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:background="@color/transparent"
         android:drawableTop="@drawable/ic_sortword"
         android:drawablePadding="8dp"

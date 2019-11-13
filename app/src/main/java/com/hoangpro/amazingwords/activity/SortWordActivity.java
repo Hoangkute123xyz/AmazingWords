@@ -1,12 +1,13 @@
 package com.hoangpro.amazingwords.activity;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 
 import com.hoangpro.amazingwords.R;
-import com.hoangpro.amazingwords.base.BaseActivity;
 
-public class GamePlayActivity extends BaseActivity {
+public class SortWordActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,10 +19,6 @@ public class GamePlayActivity extends BaseActivity {
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        setContentView(R.layout.activity_game_play);
-    }
-
-    public void openSortWords(View view) {
-        openActivity(SortWordActivity.class, true);
+        setContentView(R.layout.activity_sort_word);
     }
 }
