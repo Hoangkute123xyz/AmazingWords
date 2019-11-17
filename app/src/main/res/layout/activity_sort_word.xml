@@ -38,4 +38,85 @@
         app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tvTime"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="16dp"
+        android:drawableLeft="@drawable/ic_time"
+        android:drawablePadding="16dp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_panel_game_mini"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="23s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLv" />
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tvCoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/bg_panel_game_mini"
+        android:drawableLeft="@drawable/ic_coin"
+        android:drawablePadding="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:text="256 Xu"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLv" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridGame"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginBottom="16dp"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTime"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:background="@drawable/bg_panel_game_mini"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        android:textColor="@color/yellow"
+        android:textStyle="bold"
+        android:drawableLeft="@drawable/ic_buy_idea"
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="-50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="0dp"
+        android:layout_height="124dp"
+        android:background="@drawable/bg_correct"
+        android:gravity="center"
+        android:text="Chính Xác!!!"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

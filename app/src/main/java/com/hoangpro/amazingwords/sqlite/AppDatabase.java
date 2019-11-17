@@ -7,6 +7,7 @@ import androidx.room.Database;
 import androidx.room.Query;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.Update;
 
 @Database(version = 1,entities = {Word.class})
 public abstract class AppDatabase extends RoomDatabase {
@@ -20,9 +21,4 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return instance;
     }
-}
-@Dao
-interface AppDAO{
-    @Query("select * from Word order by random() limit 1")
-    Word getRandomWord();
 }

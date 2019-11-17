@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:background="@color/transparent"
-        android:drawableTop="@drawable/ic_sortword"
+        android:drawableTop="@drawable/ic_findwords"
         android:drawablePadding="8dp"
         android:text="@string/findWords"
         android:textColor="@color/white"

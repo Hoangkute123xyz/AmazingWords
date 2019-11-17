@@ -7,4 +7,6 @@
     <string name="sortWords">Xếp chữ</string>
     <string name="findWords">Tìm chữ</string>
     <string name="chose_game_mode">Chọn chế độ chơi</string>
+    <string name="win">Chiến thắng!!!</string>
+    <string name="mContinue">Tiếp tục</string>
 </resources>
