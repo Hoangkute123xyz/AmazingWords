@@ -4,7 +4,7 @@
     android:padding="8dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@drawable/bg_dialog_win"
+    android:background="@drawable/bg_dialog_lose"
     android:layout_height="wrap_content">
 
     <TextView
@@ -14,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:rotation="-14"
-        android:text="@string/win"
-        android:textColor="@color/yellow"
+        android:text="@string/lose"
+        android:textColor="@android:color/holo_red_light"
         android:textSize="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,52 +25,24 @@
         android:id="@+id/tvResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Đáp án: Love"
+        android:layout_marginTop="32dp"
+        android:text="Số câu: 12"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/ic_time"
-        android:drawablePadding="8dp"
-        android:text="+0s"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.273"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvResult" />
-
-    <TextView
-        android:drawableLeft="@drawable/ic_coin"
-        android:drawablePadding="8dp"
-        android:textColor="@color/yellow"
-        android:id="@+id/tvCoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="+0 Xu"
-        app:layout_constraintStart_toStartOf="@+id/tvTime"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
-
     <Button
-        android:background="@drawable/bg_button_continue"
-        android:textAllCaps="false"
         android:id="@+id/btnAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/mContinue"
+        android:textAllCaps="false"
+        android:background="@drawable/bg_button_back"
+        android:text="@string/Back"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCoin"
-        android:textColor="@color/white"/>
+        app:layout_constraintTop_toBottomOf="@+id/tvResult" />
 </androidx.constraintlayout.widget.ConstraintLayout>

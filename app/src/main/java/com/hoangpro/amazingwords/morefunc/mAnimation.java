@@ -4,9 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.graphics.Color;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.hoangpro.amazingwords.R;
@@ -38,7 +38,7 @@ public class mAnimation {
         return animatorSet;
     }
 
-    public static void setAnimTranslateSortGameXY(final View view, ViewTranslate from, ViewTranslate target, Boolean isHide) {
+    public static void setAnimTranslateSortGameXY(final View view, ViewTranslate from, ViewTranslate target) {
         view.setVisibility(View.VISIBLE);
         view.setClickable(false);
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(view, "TranslationX", target.floatX - from.floatX);
@@ -64,13 +64,13 @@ public class mAnimation {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                view.setClickable(true);
+                view.setClickable(false);
             }
         });
         animatorSet.start();
     }
 
-    public static void setAnimTranslateSortGameXYBack(final View view) {
+    public static AnimatorSet setAnimTranslateSortGameXYBack(final View view) {
         view.setVisibility(View.VISIBLE);
         view.setClickable(false);
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(view, "TranslationX", 1f);
@@ -92,8 +92,10 @@ public class mAnimation {
             }
         });
         animatorSet.start();
+        return animatorSet;
     }
-    public static void setAnimTimeOver(final View view){
+
+    public static void setAnimTimeOver(final View view) {
         view.setBackgroundResource(R.drawable.bg_panel_game_mini_wrong);
         ObjectAnimator objectAnimatorRight = ObjectAnimator.ofFloat(view, "TranslationX", 50f);
         objectAnimatorRight.setDuration(150);
@@ -109,11 +111,11 @@ public class mAnimation {
         animatorSet.start();
     }
 
-    public static void setAnimShowResult(final TextView textView, int backGround, String textSetter){
+    public static void setAnimShowResult(final TextView textView, int backGround, String textSetter) {
         textView.setVisibility(View.VISIBLE);
         textView.setBackgroundResource(backGround);
         textView.setText(textSetter);
-        textView.setTranslationY(-900);
+        textView.setTranslationY(-900f);
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(textView, "TranslationY", 1f);
         objectAnimator.setDuration(400);
 
@@ -133,28 +135,44 @@ public class mAnimation {
         animatorSet.start();
     }
 
-    public static void setAnimWrongTextviewAnswer(final TextView textView){
-        textView.setBackgroundResource(R.drawable.bg_answer_wrong);
-        textView.setTextColor(Color.parseColor("#9F0E60"));
-        ObjectAnimator objectAnimatorRight= ObjectAnimator.ofFloat(textView, "rotation",25f);
-        objectAnimatorRight.setDuration(200);
+    public static void setAnimWrongTextviewAnswer(final TextView textView) {
+        if (textView.isClickable()) {
+            textView.setBackgroundResource(R.drawable.bg_answer_wrong);
+            textView.setTextColor(Color.parseColor("#9F0E60"));
+            ObjectAnimator objectAnimatorRight = ObjectAnimator.ofFloat(textView, "rotation", 25f);
+            objectAnimatorRight.setDuration(200);
 
-        ObjectAnimator objectAnimatorLeft = ObjectAnimator.ofFloat(textView, "rotation", -25f);
-        objectAnimatorLeft.setDuration(200);
+            ObjectAnimator objectAnimatorLeft = ObjectAnimator.ofFloat(textView, "rotation", -25f);
+            objectAnimatorLeft.setDuration(200);
 
-        ObjectAnimator objectAnimatorBack = ObjectAnimator.ofFloat(textView, "rotation", 1f);
-        objectAnimatorBack.setDuration(200);
+            ObjectAnimator objectAnimatorBack = ObjectAnimator.ofFloat(textView, "rotation", 1f);
+            objectAnimatorBack.setDuration(200);
+
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.play(objectAnimatorRight).before(objectAnimatorBack).after(objectAnimatorLeft).before(objectAnimatorBack);
+            animatorSet.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    super.onAnimationEnd(animation);
+                    textView.setBackgroundResource(R.drawable.bg_answer);
+                    textView.setTextColor(Color.parseColor("#098A45"));
+                }
+            });
+            animatorSet.start();
+        }
+    }
+
+    public static AnimatorSet setAnimFloatToTop(View view) {
+        view.setTranslationY(view.getTranslationY() - 250f);
+        view.setAlpha(0);
+        ObjectAnimator objectAnimatorToTOp = ObjectAnimator.ofFloat(view, "TranslationY", 1f);
+        objectAnimatorToTOp.setDuration(300);
+
+        ObjectAnimator objectAnimatorAlpha = ObjectAnimator.ofFloat(view, "Alpha", 1f);
+        objectAnimatorAlpha.setDuration(250);
 
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(objectAnimatorRight).before(objectAnimatorBack).after(objectAnimatorLeft).before(objectAnimatorBack);
-        animatorSet.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                textView.setBackgroundResource(R.drawable.bg_answer);
-                textView.setTextColor(Color.parseColor("#098A45"));
-            }
-        });
-        animatorSet.start();
+        animatorSet.play(objectAnimatorToTOp).with(objectAnimatorAlpha);
+        return animatorSet;
     }
 }

@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:onClick="pauseGame"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_margin="8dp"
@@ -89,6 +90,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:onClick="actionBuyHint"
         android:background="@drawable/bg_panel_game_mini"
         android:paddingHorizontal="16dp"
         android:paddingVertical="8dp"

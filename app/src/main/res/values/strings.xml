@@ -9,4 +9,17 @@
     <string name="chose_game_mode">Chọn chế độ chơi</string>
     <string name="win">Chiến thắng!!!</string>
     <string name="mContinue">Tiếp tục</string>
+    <string name="coin">Xu</string>
+    <string name="level">Màn</string>
+    <string name="result">Kết quả</string>
+    <string name="lose">Thua cuộc!!!</string>
+    <string name="Back">Trở về</string>
+    <string name="total_level">Số câu</string>
+    <string name="rank_title">Bảng xếp hạng</string>
+    <string name="app_info">Thông tin ứng dụng</string>
+    <string name="about_us">Về chúng tôi</string>
+    <string name="version">Phiên bản: 1.0</string>
+    <string name="content_about">Nhà phát triển: Hoàng Đào\n\nĐịa chỉ: Thanh Hóa - Việt Nam\n\nEmail: kenllylun@gmail.com\n\nSĐT: 0981488364</string>
+    <string name="thank_for_play">Cảm ơn bạn đã chơi game!!</string>
+    <string name="connect_with_us">Kết nối với chúng tôi</string>
 </resources>

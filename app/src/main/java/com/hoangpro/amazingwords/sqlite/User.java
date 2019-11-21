@@ -3,6 +3,8 @@ package com.hoangpro.amazingwords.sqlite;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.Random;
+
 public class User {
     public static int coin;
     public static int timeCount;
@@ -13,13 +15,16 @@ public class User {
     public static void loadUser(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(shareFreName, Context.MODE_PRIVATE);
         if (sharedPreferences!=null){
-            coin=sharedPreferences.getInt("coin", 0);
+            coin=sharedPreferences.getInt("coin", 10000000);
             timeCount=sharedPreferences.getInt("time", 30);
-            lv =sharedPreferences.getInt("lv", 0);
+            lv =sharedPreferences.getInt("lv", 1);
             wordNameCurrent = sharedPreferences.getString("wordCurrent", wordNameCurrent);
             isNextLv=sharedPreferences.getBoolean("isNextLv",true);
             if (timeCount==0){
                 timeCount=30;
+            }
+            if (wordNameCurrent==null){
+                isNextLv=true;
             }
         }
     }
@@ -38,4 +43,5 @@ public class User {
         editor.putBoolean("isNextLv", isNextLvSet);
         editor.apply();
     }
+
 }
