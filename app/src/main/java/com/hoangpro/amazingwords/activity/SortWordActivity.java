@@ -377,7 +377,7 @@ public class SortWordActivity extends BaseActivity {
 
     int hintCount;
 
-    public void makeHint() {
+    public AnimatorSet makeHint() {
         Random random = new Random();
         int iAnswer = random.nextInt(wordLength), iSelect = random.nextInt(wordLength);
         if (!tvAnswerArr[iAnswer].isClickable()) {
@@ -407,6 +407,7 @@ public class SortWordActivity extends BaseActivity {
                     setAnimWrongTextviewAnswer(textView);
                 }
             }
+        return animatorSet;
     }
 
     public void actionBuyHint(View view) {
@@ -425,11 +426,23 @@ public class SortWordActivity extends BaseActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        makeHint();
+                        makeHint().addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                tvBuyAction.setClickable(true);
+                            }
+                        });
                     }
                 });
             else
-                makeHint();
+                makeHint().addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        tvBuyAction.setClickable(true);
+                    }
+                });
             writeUser(this, timeCount, coin - 20, lv, wordNameCurrent, isNextLv);
             tvCoin.setText(String.format("%d Xu", coin));
         } else {
