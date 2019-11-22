@@ -24,4 +24,8 @@ public class GamePlayActivity extends BaseActivity {
     public void openSortWords(View view) {
         openActivity(SortWordActivity.class, true);
     }
+
+    public void openFindWordsGame(View view) {
+        openActivity(FindWordGameActivity.class, true);
+    }
 }

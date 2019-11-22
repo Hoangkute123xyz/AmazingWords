@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/bg_activity"
     android:layout_height="match_parent"
-    tools:context=".activity.SortWordActivity">
+    tools:context=".activity.FindWordGameActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -45,16 +45,16 @@
         android:id="@+id/tvBuyIdea"
         android:paddingVertical="8dp"
         android:paddingHorizontal="16dp"
-        android:drawableLeft="@drawable/ic_time"
+        android:drawableLeft="@drawable/ic_buy_idea"
         android:drawablePadding="16dp"
-        android:textColor="@color/white"
+        android:textColor="@color/yellow"
         android:background="@drawable/bg_panel_game_mini"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="23s"
+        android:text="- 50"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLv" />
 
@@ -79,33 +79,15 @@
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridGame"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="128dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:foregroundGravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        android:padding="8dp"
+        app:columnCount="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvBuyIdea"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:onClick="actionBuyHint"
-        android:background="@drawable/bg_panel_game_mini"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:textColor="@color/yellow"
-        android:textStyle="bold"
-        android:drawableLeft="@drawable/ic_buy_idea"
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="-50"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:rowCount="6" />
 
     <TextView
         android:id="@+id/tvResult"

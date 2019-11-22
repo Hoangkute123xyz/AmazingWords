@@ -123,7 +123,7 @@ public class SortWordActivity extends BaseActivity {
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_lose, null, false);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         TextView tvResult = view.findViewById(R.id.tvResult);
-        Button btnAction=view.findViewById(R.id.btnAction);
+        Button btnAction = view.findViewById(R.id.btnAction);
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,16 +131,16 @@ public class SortWordActivity extends BaseActivity {
                 overridePendingTransition(0, 0);
             }
         });
-        tvResult.setText(String.format("%s: %d",getString(R.string.total_level),lv));
+        tvResult.setText(String.format("%s: %d", getString(R.string.total_level), lv));
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.play(setAnimScaleXY(tvTitle)).before(setAnimFloatToTop(tvResult));
         animatorSet.start();
         builder.setView(view);
         AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        alertDialog.getWindow().getAttributes().windowAnimations=R.style.DialogAnimation;
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         alertDialog.setCancelable(false);
-        dialog=alertDialog;
+        dialog = alertDialog;
         alertDialog.show();
     }
 
@@ -235,6 +235,7 @@ public class SortWordActivity extends BaseActivity {
     }
 
     Dialog dialog;
+
     private void openDialogWin() {
         timerGame.cancel();
         Random random = new Random();
@@ -246,7 +247,7 @@ public class SortWordActivity extends BaseActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = LayoutInflater.from(SortWordActivity.this).inflate(R.layout.dialog_win, null, false);
         final TextView tvCoin = view.findViewById(R.id.tvCoin);
-        final TextView tvTime = view.findViewById(R.id.tvTime);
+        final TextView tvTime = view.findViewById(R.id.tvBuyIdea);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         TextView tvResult = view.findViewById(R.id.tvResult);
         Button btnAction = view.findViewById(R.id.btnAction);
@@ -310,9 +311,9 @@ public class SortWordActivity extends BaseActivity {
         builder.setView(view);
         AlertDialog alertDialog = builder.create();
         alertDialog.setCancelable(false);
-        alertDialog.getWindow().getAttributes().windowAnimations=R.style.DialogAnimation;
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog=alertDialog;
+        dialog = alertDialog;
         alertDialog.show();
     }
 
@@ -346,7 +347,7 @@ public class SortWordActivity extends BaseActivity {
     private void initView() {
         tvLv = findViewById(R.id.tvLv);
         gridGame = findViewById(R.id.gridGame);
-        tvTime = findViewById(R.id.tvTime);
+        tvTime = findViewById(R.id.tvBuyIdea);
         tvCoin = findViewById(R.id.tvCoin);
         tvResult = findViewById(R.id.tvResult);
         gridGame.setAlignmentMode(Gravity.CENTER);
@@ -434,6 +435,7 @@ public class SortWordActivity extends BaseActivity {
     }
 
     public void pauseGame(View view) {
+        timerGame.cancel();
         openActivity(MainActivity.class, true);
     }
 }
