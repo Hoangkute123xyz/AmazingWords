@@ -65,6 +65,7 @@ public class SortWordActivity extends BaseActivity {
     private TextView tvTime;
     private TextView tvCoin;
     private TextView tvResult;
+    private TextView tvBuyAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +182,7 @@ public class SortWordActivity extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     tvAnswerArr[finalI].setText("");
-                    mAnimation.setAnimTranslateSortGameXYBack(tvSelectArr[answerTranslate[finalI].posionRelative]);
+                    setAnimTranslateSortGameXYBack(tvSelectArr[answerTranslate[finalI].posionRelative]);
                     Log.e("check", "select = " + answerTranslate[finalI].posionRelative + " answer = " + finalI);
                 }
             });
@@ -205,7 +206,7 @@ public class SortWordActivity extends BaseActivity {
                 public void onClick(View v) {
                     for (int j = 0; j < wordLength; j++) {
                         if (tvAnswerArr[j].getText().toString().length() == 0) {
-                            mAnimation.setAnimTranslateSortGameXY
+                            setAnimTranslateSortGameXY
                                     (
                                             tvSelectArr[finalI],
                                             selectTranslate[finalI],
@@ -351,6 +352,7 @@ public class SortWordActivity extends BaseActivity {
         tvCoin = findViewById(R.id.tvCoin);
         tvResult = findViewById(R.id.tvResult);
         gridGame.setAlignmentMode(Gravity.CENTER);
+        tvBuyAction = (TextView) findViewById(R.id.tvBuyAction);
     }
 
     private TextView createTextView(ViewGroup parent, int bgView) {
@@ -391,7 +393,7 @@ public class SortWordActivity extends BaseActivity {
             }
         }
         tvAnswerArr[iAnswer].setClickable(false);
-        setAnimTranslateSortGameXY(tvSelectArr[iSelect], selectTranslate[iSelect], answerTranslate[iAnswer]);
+        AnimatorSet animatorSet =setAnimTranslateSortGameXY(tvSelectArr[iSelect], selectTranslate[iSelect], answerTranslate[iAnswer]);
         tvAnswerArr[iAnswer].setTextColor(Color.WHITE);
         tvAnswerArr[iAnswer].setBackgroundResource(R.drawable.bg_idea);
         tvAnswerArr[iAnswer].setText(tvSelectArr[iSelect].getText().toString());
@@ -408,6 +410,7 @@ public class SortWordActivity extends BaseActivity {
     }
 
     public void actionBuyHint(View view) {
+        tvBuyAction.setClickable(false);
         AnimatorSet animatorSet = null;
         for (int i = 0; i < wordLength; i++) {
             if (tvAnswerArr[i].getText().toString().length() > 0 && tvAnswerArr[i].isClickable()) {

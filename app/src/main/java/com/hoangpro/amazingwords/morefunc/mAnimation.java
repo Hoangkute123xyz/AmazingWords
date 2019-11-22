@@ -38,7 +38,7 @@ public class mAnimation {
         return animatorSet;
     }
 
-    public static void setAnimTranslateSortGameXY(final View view, ViewTranslate from, ViewTranslate target) {
+    public static AnimatorSet setAnimTranslateSortGameXY(final View view, ViewTranslate from, ViewTranslate target) {
         view.setVisibility(View.VISIBLE);
         view.setClickable(false);
         ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(view, "TranslationX", target.floatX - from.floatX);
@@ -68,6 +68,7 @@ public class mAnimation {
             }
         });
         animatorSet.start();
+        return animatorSet;
     }
 
     public static AnimatorSet setAnimTranslateSortGameXYBack(final View view) {
