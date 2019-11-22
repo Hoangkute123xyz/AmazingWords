@@ -15,7 +15,7 @@ public class User {
     public static void loadUser(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences(shareFreName, Context.MODE_PRIVATE);
         if (sharedPreferences!=null){
-            coin=sharedPreferences.getInt("coin", 10000000);
+            coin=sharedPreferences.getInt("coin", 5000);
             timeCount=sharedPreferences.getInt("time", 30);
             lv =sharedPreferences.getInt("lv", 1);
             wordNameCurrent = sharedPreferences.getString("wordCurrent", wordNameCurrent);
