@@ -24,14 +24,14 @@ public class MainActivity extends BaseActivity {
     }
 
     public void openGamePlay(View view) {
-        openActivity(GamePlayActivity.class, false);
+        openActivity(GamePlayActivity.class, true);
     }
 
     public void openRank(View view) {
-        openActivity(RankActivity.class, false);
+        openActivity(RankActivity.class, true);
     }
 
     public void openAbout(View view) {
-        openActivity(AboutActivity.class, false);
+        openActivity(AboutActivity.class, true);
     }
 }

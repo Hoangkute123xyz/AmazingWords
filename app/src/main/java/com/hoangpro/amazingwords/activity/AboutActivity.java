@@ -20,4 +20,15 @@ public class AboutActivity extends BaseActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_about);
     }
+
+    public void actionBack(View view) {
+        openActivity(MainActivity.class, true);
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        actionBack(null);
+    }
 }

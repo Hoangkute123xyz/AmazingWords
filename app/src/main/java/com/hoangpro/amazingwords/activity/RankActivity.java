@@ -62,12 +62,17 @@ public class RankActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        actionBack(null);
     }
 
     private void initView() {
         lnAccountInfo = findViewById(R.id.lnAccountInfo);
         tvCoin = findViewById(R.id.tvCoin);
         rvRank = findViewById(R.id.rvRank);
+    }
+
+    public void actionBack(View view) {
+        openActivity(MainActivity.class, true);
+        overridePendingTransition(0, 0);
     }
 }

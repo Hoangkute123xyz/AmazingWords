@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:onClick="actionBack"
             android:layout_width="13dp"
             android:layout_height="27dp"
             android:layout_marginHorizontal="32dp"

@@ -28,4 +28,15 @@ public class GamePlayActivity extends BaseActivity {
     public void openFindWordsGame(View view) {
         openActivity(FindWordGameActivity.class, true);
     }
+
+    public void actionBack(View view) {
+        openActivity(MainActivity.class, true);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        openActivity(MainActivity.class, true);
+        overridePendingTransition(0, 0);
+    }
 }

@@ -370,7 +370,7 @@ public class SortWordActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         timerGame.cancel();
-        finish();
+        pauseGame(null);
     }
 
     int hintCount;

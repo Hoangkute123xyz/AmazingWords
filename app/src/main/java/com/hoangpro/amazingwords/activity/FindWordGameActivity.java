@@ -170,4 +170,10 @@ public class FindWordGameActivity extends BaseActivity {
         gridGame = findViewById(R.id.gridGame);
         tvResult = findViewById(R.id.tvResult);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        pauseGame(null);
+    }
 }
