@@ -12,8 +12,10 @@ import android.widget.TextView;
 import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.model.ViewTranslate;
 
+import java.sql.Blob;
 
-public class mAnimation {
+
+public class MyAnimation {
     public static AnimatorSet setAnimScaleXY(final View view) {
         view.setScaleX(0f);
         view.setScaleY(0f);
@@ -136,7 +138,7 @@ public class mAnimation {
         animatorSet.start();
     }
 
-    public static void setAnimWrongTextviewAnswer(final TextView textView) {
+    public static AnimatorSet setAnimWrongTextviewAnswer(final TextView textView) {
         if (textView.isClickable()) {
             textView.setBackgroundResource(R.drawable.bg_answer_wrong);
             textView.setTextColor(Color.parseColor("#9F0E60"));
@@ -160,7 +162,9 @@ public class mAnimation {
                 }
             });
             animatorSet.start();
+            return animatorSet;
         }
+        return null;
     }
 
     public static AnimatorSet setAnimFloatToTop(View view) {
@@ -176,4 +180,103 @@ public class mAnimation {
         animatorSet.play(objectAnimatorToTOp).with(objectAnimatorAlpha);
         return animatorSet;
     }
+    public static void setAnimScaleToSmall(final TextView textView, final int bgBack){
+        textView.setScaleX(1f);
+        textView.setScaleY(1f);
+
+        ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(textView, "ScaleX", 0.7f);
+        objectAnimatorX.setDuration(400);
+
+        ObjectAnimator objectAnimatorY = ObjectAnimator.ofFloat(textView, "ScaleY", 0.7f);
+        objectAnimatorY.setDuration(400);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(objectAnimatorX).with(objectAnimatorY);
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                textView.setBackgroundResource(bgBack);
+                textView.setTextColor(Color.WHITE);
+            }
+        });
+        animatorSet.start();
+    }
+    public static void setAnimScaleToSmallBack(final TextView textView, final int bgBack){
+
+        ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(textView, "ScaleX", 1f);
+        objectAnimatorX.setDuration(400);
+
+        ObjectAnimator objectAnimatorY = ObjectAnimator.ofFloat(textView, "ScaleY", 1f);
+        objectAnimatorY.setDuration(400);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(objectAnimatorX).with(objectAnimatorY);
+        animatorSet.start();
+    }
+    public static AnimatorSet setAnimShowAnswer(final TextView textView){
+        textView.setVisibility(View.VISIBLE);
+        textView.setTranslationY(1f);
+        textView.setAlpha(0f);
+
+        ObjectAnimator objectAnimatorFloatY1 = ObjectAnimator.ofFloat(textView, "TranslationY", -100f);
+        objectAnimatorFloatY1.setDuration(1000);
+
+        ObjectAnimator objectAnimatorAlpha1 = ObjectAnimator.ofFloat(textView, "Alpha", 1f);
+        objectAnimatorAlpha1.setDuration(1000);
+
+        ObjectAnimator objectAnimatorFloatY2 = ObjectAnimator.ofFloat(textView, "TranslationY", -200f);
+        objectAnimatorFloatY2.setDuration(1000);
+
+        ObjectAnimator objectAnimatorAlpha2 = ObjectAnimator.ofFloat(textView, "Alpha", 0f);
+        objectAnimatorAlpha2.setDuration(1000);
+
+        AnimatorSet animatorSet1 = new AnimatorSet();
+        animatorSet1.play(objectAnimatorAlpha1).with(objectAnimatorFloatY1);
+
+        AnimatorSet animatorSet2 = new AnimatorSet();
+        animatorSet2.play(objectAnimatorAlpha2).with(objectAnimatorFloatY2);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(animatorSet1).before(animatorSet2);
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                textView.setVisibility(View.GONE);
+            }
+        });
+        animatorSet.start();
+        return animatorSet;
+    }
+
+    public static AnimatorSet setAnimLeftTo(View view){
+        view.setVisibility(View.VISIBLE);
+        view.setTranslationX(-100f);
+        view.setAlpha(0f);
+        ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(view, "TranslationX", 1f);
+        objectAnimatorX.setDuration(200);
+
+        ObjectAnimator objectAnimatorAlpha = ObjectAnimator.ofFloat(view, "Alpha", 1f);
+        objectAnimatorAlpha.setDuration(200);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(objectAnimatorX).with(objectAnimatorAlpha);
+        return animatorSet;
+    }
+    public static AnimatorSet setAnimRightTo(View view){
+        view.setVisibility(View.VISIBLE);
+        view.setTranslationX(100f);
+        view.setAlpha(0f);
+        ObjectAnimator objectAnimatorX = ObjectAnimator.ofFloat(view, "TranslationX", 1f);
+        objectAnimatorX.setDuration(300);
+
+        ObjectAnimator objectAnimatorAlpha = ObjectAnimator.ofFloat(view, "Alpha", 1f);
+        objectAnimatorAlpha.setDuration(300);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.play(objectAnimatorX).with(objectAnimatorAlpha);
+        return animatorSet;
+    }
+
 }

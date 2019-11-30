@@ -1,18 +1,14 @@
 package com.hoangpro.amazingwords.activity;
 
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.os.BaseBundle;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.base.BaseActivity;
 import com.hoangpro.amazingwords.morefunc.DatabaseAccess;
-import com.hoangpro.amazingwords.morefunc.mAnimation;
+import com.hoangpro.amazingwords.morefunc.MyAnimation;
 
 public class LoginActivity extends BaseActivity {
 
@@ -39,7 +35,7 @@ public class LoginActivity extends BaseActivity {
         imgAmazing = findViewById(R.id.imgAmazing);
         imgWords = findViewById(R.id.imgWords);
         AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(mAnimation.setAnimScaleXY(imgWords)).after(mAnimation.setAnimScaleXY(imgAmazing));
+        animatorSet.play(MyAnimation.setAnimScaleXY(imgWords)).after(MyAnimation.setAnimScaleXY(imgAmazing));
         animatorSet.start();
     }
 

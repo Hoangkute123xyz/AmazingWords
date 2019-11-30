@@ -22,4 +22,8 @@
     <string name="content_about">Nhà phát triển: Hoàng Đào\n\nĐịa chỉ: Thanh Hóa - Việt Nam\n\nEmail: kenllylun@gmail.com\n\nSĐT: 0981488364</string>
     <string name="thank_for_play">Cảm ơn bạn đã chơi game!!</string>
     <string name="connect_with_us">Kết nối với chúng tôi</string>
+    <string name="wrong">Sai rồi!!</string>
+    <string name="correct">Đúng rồi!!</string>
+    <string name="rest">Còn lại</string>
+    <string name="not_enough_money">Không đủ tiền</string>
 </resources>

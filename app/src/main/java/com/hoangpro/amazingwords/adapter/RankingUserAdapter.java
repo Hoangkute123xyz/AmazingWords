@@ -14,11 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.model.Top;
-import com.hoangpro.amazingwords.morefunc.mAnimation;
 
 import java.util.List;
 
-import static com.hoangpro.amazingwords.morefunc.mAnimation.setAnimFloatToTop;
+import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimFloatToTop;
 
 class RankHolder extends RecyclerView.ViewHolder {
     ImageView imgAvt;

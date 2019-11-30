@@ -1,106 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@drawable/bg_activity"
-    android:layout_height="match_parent"
-    tools:context=".activity.FindWordGameActivity">
+<layout>
+    <data>
+        <variable
+            name="currentLv"
+            type="String" />
+        <variable
+            name="rest"
+            type="String" />
+        <variable
+            name="userCoin"
+            type="String" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_activity"
+        android:layout_height="match_parent"
+        tools:context=".activity.FindWordGameActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="410dp"
-        android:layout_height="80dp"
-        android:background="@drawable/bg_game_panel_top"
-        android:gravity="center|top"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/tvResult2"
+            android:layout_width="0dp"
+            android:layout_height="124dp"
+            android:background="@drawable/bg_correct"
+            android:gravity="center"
+            android:text="Chính Xác!!!"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:onClick="pauseGame"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_margin="8dp"
-            android:src="@drawable/ic_play" />
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="410dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_game_panel_top"
+            android:gravity="center|top"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvLv"
-        android:text="Màn 12"
-        android:textColor="#CBC400"
-        android:textSize="24sp"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:background="@drawable/bg_panel_level"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
+            <ImageView
+                android:onClick="pauseGame"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_play" />
+        </LinearLayout>
 
-    <TextView
-        android:textStyle="bold"
-        android:id="@+id/tvBuyIdea"
-        android:paddingVertical="8dp"
-        android:paddingHorizontal="16dp"
-        android:drawableLeft="@drawable/ic_buy_idea"
-        android:drawablePadding="16dp"
-        android:textColor="@color/yellow"
-        android:background="@drawable/bg_panel_game_mini"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="- 50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLv" />
+        <TextView
+            android:id="@+id/tvLv"
+            android:text="@{currentLv}"
+            android:textColor="#CBC400"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:background="@drawable/bg_panel_level"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout3" />
 
-    <TextView
-        android:textStyle="bold"
-        android:id="@+id/tvCoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@drawable/bg_panel_game_mini"
-        android:drawableLeft="@drawable/ic_coin"
-        android:drawablePadding="16dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        android:text="256 Xu"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvLv" />
+        <TextView
+            android:onClick="actionBuyHint"
+            android:textStyle="bold"
+            android:id="@+id/tvBuyIdea"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="16dp"
+            android:drawableLeft="@drawable/ic_buy_idea"
+            android:drawablePadding="16dp"
+            android:textColor="@color/yellow"
+            android:background="@drawable/bg_panel_game_mini"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="- 50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLv" />
 
-    <androidx.gridlayout.widget.GridLayout
-        android:id="@+id/gridGame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:foregroundGravity="center"
-        android:padding="8dp"
-        app:columnCount="5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBuyIdea"
-        app:rowCount="6" />
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tvCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/bg_panel_game_mini"
+            android:drawableLeft="@drawable/ic_coin"
+            android:drawablePadding="16dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="@{userCoin}"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLv" />
 
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="0dp"
-        android:layout_height="124dp"
-        android:background="@drawable/bg_correct"
-        android:gravity="center"
-        android:text="Chính Xác!!!"
-        android:textColor="@color/white"
-        android:textSize="32sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.gridlayout.widget.GridLayout
+            android:id="@+id/gridGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:foregroundGravity="center"
+            app:columnCount="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRest"
+            app:rowCount="6" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="0dp"
+            android:layout_height="124dp"
+            android:background="@drawable/bg_correct"
+            android:gravity="center"
+            android:text="Chính Xác!!!"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvRest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:text="@{rest}"
+            app:layout_constraintEnd_toStartOf="@+id/tvCoin"
+            app:layout_constraintStart_toEndOf="@+id/tvBuyIdea"
+            app:layout_constraintTop_toBottomOf="@+id/tvLv" />
+
+        <TextView
+            android:id="@+id/tvAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvDivCoin"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:text="TextView"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvAnswer"
+            app:layout_constraintStart_toStartOf="@+id/tvAnswer" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

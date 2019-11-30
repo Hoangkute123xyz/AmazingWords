@@ -19,8 +19,7 @@ import com.hoangpro.amazingwords.model.Top;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.hoangpro.amazingwords.morefunc.mAnimation.setAnimFloatToTop;
-import static com.hoangpro.amazingwords.morefunc.mAnimation.setAnimScaleXY;
+import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleXY;
 
 public class RankActivity extends BaseActivity {
 
