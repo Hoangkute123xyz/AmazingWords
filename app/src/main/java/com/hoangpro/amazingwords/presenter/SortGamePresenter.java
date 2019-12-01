@@ -49,7 +49,7 @@ public class SortGamePresenter {
 
     public void createUI() {
         view.getData();
-        activity.binding.setUserCoin(String.format("%d %s", coin,activity.getString(R.string.coin)));
+        activity.binding.setUserCoin(String.format("%d %s", coin, activity.getString(R.string.coin)));
         activity.binding.setUserTime(String.format("%d s", timeCount));
         activity.gridGame.setColumnCount(activity.wordLength);
         activity.answerTranslate = new ViewTranslate[activity.wordLength];
@@ -167,16 +167,18 @@ public class SortGamePresenter {
                     animObj.setStartDelay(i * 300);
                     animObj.start();
                 }
-                for (int i = activity.tvSelectArr.length-1; i >=0; i--) {
+                for (int i = activity.tvSelectArr.length - 1; i >= 0; i--) {
                     AnimatorSet animObj = setAnimRightTo(activity.tvSelectArr[i]);
-                    animObj.setStartDelay((-i + 2*activity.tvSelectArr.length) * 300);
+                    animObj.setStartDelay((-i + 2 * activity.tvSelectArr.length) * 300);
                     animObj.start();
                     if (i == 0) {
                         animObj.addListener(new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
-                                runGame();
+                                Log.e("hasFocus", activity.hasFocus+"");
+                                if (activity.hasFocus)
+                                    runGame();
                                 activity.tvBuyAction.setClickable(true);
                             }
                         });
@@ -243,7 +245,7 @@ public class SortGamePresenter {
         return animatorSet;
     }
 
-    public void actionHint(){
+    public void actionHint() {
         activity.tvBuyAction.setClickable(false);
         AnimatorSet animatorSet = null;
         for (int i = 0; i < activity.wordLength; i++) {
@@ -277,7 +279,7 @@ public class SortGamePresenter {
                     }
                 });
             writeUser(activity, timeCount, coin - 20, lvSortWord, wordNameCurrent, isNextLv);
-            activity.binding.setUserCoin(String.format("%d %s", coin,activity.getString(R.string.coin)));
+            activity.binding.setUserCoin(String.format("%d %s", coin, activity.getString(R.string.coin)));
         } else {
             Toast.makeText(activity, activity.getString(R.string.not_enough_money), Toast.LENGTH_SHORT).show();
         }

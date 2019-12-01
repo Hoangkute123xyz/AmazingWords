@@ -50,7 +50,7 @@ public class FindWordGamePresenter {
 
     public void actionBuyHint(){
         if (activity.wordList.size() > 0 && coin >= 50) {
-            int idPosAnswer = activity.posAnswer.size() == 1 ? 0 : new Random().nextInt(activity.posAnswer.size() - 1);
+            int idPosAnswer = activity.posAnswer.size() <= 1 ? 0 : new Random().nextInt(activity.posAnswer.size() - 1);
             activity.returnAnswer(activity.wordList.get(idPosAnswer).wordName);
             activity.returnDivCoin();
             activity.wordList.remove(idPosAnswer);
@@ -61,7 +61,7 @@ public class FindWordGamePresenter {
             }
             activity.posAnswer.remove(idPosAnswer);
             setCoin(activity, coin - 50);
-            activity.tvCoin.setText(String.format("%d %s", coin, activity.getString(R.string.coin)));
+            activity.binding.setUserCoin(String.format("%d %s", coin, activity.getString(R.string.coin)));
             activity.checkWin();
         }
     }
@@ -176,7 +176,7 @@ public class FindWordGamePresenter {
                 activity.wordList.remove(i);
                 activity.posAnswer.remove(i);
                 activity.checkWin();
-                activity.tvRest.setText(String.format("%s: %d", activity.getString(R.string.rest), activity.wordList.size()));
+                activity.binding.setRest(String.format("%s: %d", activity.getString(R.string.rest), activity.wordList.size()));
                 return textLeftTo;
             } else if (word.wordName.equalsIgnoreCase(texRightTo)) {
                 activity.returnAnswer(word.wordName);

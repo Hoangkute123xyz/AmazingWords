@@ -65,6 +65,7 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
     public int hintCount;
     public boolean isFirst = true;
     public ActivitySortWordBinding binding;
+    public boolean hasFocus=false;
     SortGamePresenter presenter;
 
     @Override
@@ -83,6 +84,7 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        this.hasFocus=hasFocus;
         if (hasFocus) {
             if (isFirst) {
                 for (int i = 0; i < wordLength; i++) {
@@ -258,15 +260,9 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
         super.onDestroy();
         if (timerGame!=null)
             timerGame.cancel();
+        hasFocus=false;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (timerGame!=null){
-            timerGame.cancel();
-        }
-    }
 
     public void pauseGame(View view) {
         if (timerGame != null)
