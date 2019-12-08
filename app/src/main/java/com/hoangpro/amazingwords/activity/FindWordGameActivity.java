@@ -9,13 +9,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.databinding.DataBindingUtil;
@@ -27,7 +23,6 @@ import com.hoangpro.amazingwords.databinding.ActivityFindWordGameBinding;
 import com.hoangpro.amazingwords.model.FwPos;
 import com.hoangpro.amazingwords.presenter.FindWordGamePresenter;
 import com.hoangpro.amazingwords.sqlite.AppDAO;
-import com.hoangpro.amazingwords.sqlite.AppDatabase;
 import com.hoangpro.amazingwords.sqlite.Word;
 import com.hoangpro.amazingwords.view.FindWordGameView;
 
@@ -36,20 +31,10 @@ import java.util.List;
 import java.util.Random;
 
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimFloatToTop;
-import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimLeftTo;
-import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimRightTo;
-import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleToSmall;
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleXY;
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimShowAnswer;
-import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimShowResult;
-import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimWrongTextviewAnswer;
-import static com.hoangpro.amazingwords.sqlite.User.coin;
-import static com.hoangpro.amazingwords.sqlite.User.getLvFindWord;
-import static com.hoangpro.amazingwords.sqlite.User.loadUser;
-import static com.hoangpro.amazingwords.sqlite.User.lvFindWord;
-import static com.hoangpro.amazingwords.sqlite.User.setCoin;
-import static com.hoangpro.amazingwords.sqlite.User.setLvFindWord;
-import static java.lang.Math.abs;
+import static com.hoangpro.amazingwords.morefunc.MySession.currentAccount;
+import static com.hoangpro.amazingwords.morefunc.MySession.updateAccount;
 
 public class FindWordGameActivity extends BaseActivity implements FindWordGameView {
 
@@ -119,8 +104,8 @@ public class FindWordGameActivity extends BaseActivity implements FindWordGameVi
         binding.setRest(String.format("%s: %d", getString(R.string.rest), wordList.size()));
         if (wordList.size() == 0) {
             final int coinReward = 5 + new Random().nextInt(5);
-            setCoin(this, coin + coinReward);
-            setLvFindWord(this, lvFindWord + 1);
+            currentAccount.coin += coinReward;
+            currentAccount.lvFindWord += 1;
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View view = LayoutInflater.from(this).inflate(R.layout.dialog_win, null, false);
             TextView tvTitle = view.findViewById(R.id.tvTitle);
@@ -167,6 +152,7 @@ public class FindWordGameActivity extends BaseActivity implements FindWordGameVi
                             overridePendingTransition(0, 0);
                         }
                     };
+                    updateAccount(getApplicationContext(), currentAccount);
                     timer.start();
                     dialog.dismiss();
                 }
@@ -206,5 +192,9 @@ public class FindWordGameActivity extends BaseActivity implements FindWordGameVi
         setAnimShowAnswer(tvDivCoin);
     }
 
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        updateAccount(this, currentAccount);
+    }
 }

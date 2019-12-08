@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,18 +16,25 @@ import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.adapter.RankingUserAdapter;
 import com.hoangpro.amazingwords.base.BaseActivity;
 import com.hoangpro.amazingwords.model.Top;
+import com.hoangpro.amazingwords.morefunc.CircleImage;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleXY;
+import static com.hoangpro.amazingwords.morefunc.MySession.currentAccount;
 
 public class RankActivity extends BaseActivity {
 
+    private static final String TAG = "RankActivity";
     private LinearLayout lnAccountInfo;
     private TextView tvCoin;
     private RecyclerView rvRank;
     RankingUserAdapter adapter;
+    private ImageView imgAvatar;
+    private TextView tvName;
+    private TextView tvRank;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +48,19 @@ public class RankActivity extends BaseActivity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView(R.layout.activity_rank);
         initView();
+        tvName.setText(currentAccount.name);
+        Picasso.get().load("https://graph.facebook.com/" + currentAccount.idFacebook + "/picture?type=large").transform(new CircleImage()).into(imgAvatar);
+        tvCoin.setText(String.format("%d %s", currentAccount.coin,getString(R.string.coin)));
+        setAnimforView();
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        actionBack(null);
+    }
+
+    private void setAnimforView() {
         AnimatorSet animatorSet = setAnimScaleXY(lnAccountInfo);
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -58,16 +78,13 @@ public class RankActivity extends BaseActivity {
         animatorSet.start();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        actionBack(null);
-    }
-
     private void initView() {
         lnAccountInfo = findViewById(R.id.lnAccountInfo);
         tvCoin = findViewById(R.id.tvCoin);
         rvRank = findViewById(R.id.rvRank);
+        imgAvatar = findViewById(R.id.imgAvatar);
+        tvName = findViewById(R.id.tvName);
+        tvRank = findViewById(R.id.tvRank);
     }
 
     public void actionBack(View view) {

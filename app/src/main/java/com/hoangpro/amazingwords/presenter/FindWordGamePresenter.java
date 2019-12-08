@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.activity.FindWordGameActivity;
@@ -28,10 +29,8 @@ import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleToSmall
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleXY;
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimShowResult;
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimWrongTextviewAnswer;
-import static com.hoangpro.amazingwords.sqlite.User.coin;
-import static com.hoangpro.amazingwords.sqlite.User.getLvFindWord;
-import static com.hoangpro.amazingwords.sqlite.User.loadUser;
-import static com.hoangpro.amazingwords.sqlite.User.setCoin;
+import static com.hoangpro.amazingwords.morefunc.MySession.currentAccount;
+import static com.hoangpro.amazingwords.morefunc.MySession.updateAccount;
 import static java.lang.Math.abs;
 
 public class FindWordGamePresenter {
@@ -41,15 +40,14 @@ public class FindWordGamePresenter {
         this.activity = activity;
     }
 
-    public void runGame(){
-        loadUser(activity);
+    public void runGame() {
         createUI();
         fillTableGame();
         setAllAnimForView();
     }
 
-    public void actionBuyHint(){
-        if (activity.wordList.size() > 0 && coin >= 50) {
+    public void actionBuyHint() {
+        if (activity.wordList.size() > 0 && currentAccount.coin >=20) {
             int idPosAnswer = activity.posAnswer.size() <= 1 ? 0 : new Random().nextInt(activity.posAnswer.size() - 1);
             activity.returnAnswer(activity.wordList.get(idPosAnswer).wordName);
             activity.returnDivCoin();
@@ -60,14 +58,17 @@ public class FindWordGamePresenter {
                 activity.tvSelectArr[fwPos.X][fwPos.Y].setTextColor(Color.WHITE);
             }
             activity.posAnswer.remove(idPosAnswer);
-            setCoin(activity, coin - 50);
-            activity.binding.setUserCoin(String.format("%d %s", coin, activity.getString(R.string.coin)));
+            currentAccount.coin = currentAccount.coin - 20;
+            activity.binding.setUserCoin(String.format("%d %s", currentAccount.coin, activity.getString(R.string.coin)));
+            updateAccount(activity, currentAccount);
             activity.checkWin();
+        } else {
+            Toast.makeText(activity, activity.getString(R.string.not_enough_money), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void createUI() {
-        activity.binding.setUserCoin(String.format("%d %s", coin, activity.getString(R.string.coin)));
+        activity.binding.setUserCoin(String.format("%d %s", currentAccount.coin, activity.getString(R.string.coin)));
         activity.tvSelectArr = new TextView[5][6];
         for (int j = 0; j < 6; j++) {
             for (int i = 0; i < 5; i++) {
@@ -161,7 +162,6 @@ public class FindWordGamePresenter {
     }
 
 
-
     private String getAnswer(List<TextView> tvSelected) {
         String textLeftTo = "";
         String texRightTo = "";
@@ -195,7 +195,6 @@ public class FindWordGamePresenter {
     }
 
 
-
     private TextView createTextView(String textSetter) {
         TextView tvSelect = new TextView(activity);
         tvSelect.setVisibility(View.GONE);
@@ -220,15 +219,15 @@ public class FindWordGamePresenter {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                for (int j=0;j<6;j++){
-                    for (int i=0;i<5;i++){
-                        if (j%2==0) {
+                for (int j = 0; j < 6; j++) {
+                    for (int i = 0; i < 5; i++) {
+                        if (j % 2 == 0) {
                             AnimatorSet objAnim = setAnimLeftTo(activity.tvSelectArr[i][j]);
-                            objAnim.setStartDelay((i+j)*200);
+                            objAnim.setStartDelay((i + j) * 200);
                             objAnim.start();
-                        } else{
+                        } else {
                             AnimatorSet objAnim = setAnimRightTo(activity.tvSelectArr[i][j]);
-                            objAnim.setStartDelay((i+j)*200);
+                            objAnim.setStartDelay((i + j) * 200);
                             objAnim.start();
                         }
                     }
@@ -239,7 +238,7 @@ public class FindWordGamePresenter {
     }
 
     private void getData() {
-        activity.binding.setCurrentLv(String.format("%s %d", activity.getString(R.string.level), getLvFindWord(activity)));
+        activity.binding.setCurrentLv(String.format("%s %d", activity.getString(R.string.level), currentAccount.lvFindWord));
         activity.dao = AppDatabase.getInstance(activity).getDAO();
         activity.wordList = activity.dao.getListWordRandom((new Random().nextInt(2)) + 3);
         for (Word word : activity.wordList) {

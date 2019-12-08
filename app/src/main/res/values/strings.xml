@@ -26,4 +26,6 @@
     <string name="correct">Đúng rồi!!</string>
     <string name="rest">Còn lại</string>
     <string name="not_enough_money">Không đủ tiền</string>
+    <string name="facebook_app_id">517373318988966</string> <string name="fb_login_protocol_scheme">fb517373318988966</string>
+    <string name="login_failed">Đăng nhập thất bại</string>
 </resources>

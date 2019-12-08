@@ -19,4 +19,8 @@
         <item name="android:windowExitAnimation">@anim/slide_up_out</item>
     </style>
 
+    <style name="LoginButton">
+        <item name="android:background">@drawable/bg_facebook_login</item>
+        <item name="android:paddingLeft">16dp</item>
+    </style>
 </resources>

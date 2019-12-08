@@ -31,12 +31,8 @@ import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimTimeOver;
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimTranslateSortGameXY;
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimTranslateSortGameXYBack;
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimWrongTextviewAnswer;
-import static com.hoangpro.amazingwords.sqlite.User.coin;
-import static com.hoangpro.amazingwords.sqlite.User.isNextLv;
-import static com.hoangpro.amazingwords.sqlite.User.lvSortWord;
-import static com.hoangpro.amazingwords.sqlite.User.timeCount;
-import static com.hoangpro.amazingwords.sqlite.User.wordNameCurrent;
-import static com.hoangpro.amazingwords.sqlite.User.writeUser;
+import static com.hoangpro.amazingwords.morefunc.MySession.currentAccount;
+import static com.hoangpro.amazingwords.morefunc.MySession.updateAccount;
 
 public class SortGamePresenter {
     SortWordGameView view;
@@ -49,8 +45,8 @@ public class SortGamePresenter {
 
     public void createUI() {
         view.getData();
-        activity.binding.setUserCoin(String.format("%d %s", coin, activity.getString(R.string.coin)));
-        activity.binding.setUserTime(String.format("%d s", timeCount));
+        activity.binding.setUserCoin(String.format("%d %s", currentAccount.coin, activity.getString(R.string.coin)));
+        activity.binding.setUserTime(String.format("%d s", currentAccount.timeCount));
         activity.gridGame.setColumnCount(activity.wordLength);
         activity.answerTranslate = new ViewTranslate[activity.wordLength];
         activity.selectTranslate = new ViewTranslate[activity.wordLength];
@@ -132,12 +128,12 @@ public class SortGamePresenter {
     }
 
     public void runGame() {
-        activity.timerGame = new CountDownTimer(timeCount * 1000, 1000) {
+        activity.timerGame = new CountDownTimer(currentAccount.timeCount * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                writeUser(activity, (int) (millisUntilFinished / 1000), coin, lvSortWord, activity.word.wordName, false);
-                activity.binding.setUserTime(String.format("%d s", timeCount));
-                if (timeCount < 11) {
+                currentAccount.timeCount = (int) (millisUntilFinished / 1000);
+                activity.binding.setUserTime(String.format("%d s", currentAccount.timeCount));
+                if (currentAccount.timeCount < 11) {
                     setAnimTimeOver(activity.tvTime);
                 }
             }
@@ -145,7 +141,6 @@ public class SortGamePresenter {
             @Override
             public void onFinish() {
                 view.openDialogLose();
-                writeUser(activity, timeCount, coin, lvSortWord, wordNameCurrent, true);
             }
         };
         activity.timerGame.start();
@@ -176,7 +171,7 @@ public class SortGamePresenter {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
-                                Log.e("hasFocus", activity.hasFocus+"");
+                                Log.e("hasFocus", activity.hasFocus + "");
                                 if (activity.hasFocus)
                                     runGame();
                                 activity.tvBuyAction.setClickable(true);
@@ -214,19 +209,17 @@ public class SortGamePresenter {
 
     public AnimatorSet makeHint() {
         Random random = new Random();
-        int iAnswer = random.nextInt(activity.wordLength), iSelect = random.nextInt(activity.wordLength);
+        int iAnswer = random.nextInt(activity.wordLength), iSelect = 0;
         if (!activity.tvAnswerArr[iAnswer].isClickable()) {
             while (!activity.tvAnswerArr[iAnswer].isClickable()) {
                 iAnswer = random.nextInt(activity.wordLength);
             }
         }
-
-        if (!(activity.tvSelectArr[iSelect].getText().toString()).equalsIgnoreCase((activity.word.wordName.charAt(iAnswer) + "")) || !activity.tvSelectArr[iSelect].isClickable()) {
-            while (!(activity.tvSelectArr[iSelect].getText().toString()).equalsIgnoreCase((activity.word.wordName.charAt(iAnswer) + "")) || !activity.tvSelectArr[iSelect].isClickable()) {
-                iSelect = random.nextInt(activity.wordLength);
-                Log.e("CharTest", activity.tvSelectArr[iSelect].getText().toString());
+        for (int i = 0; i < activity.wordLength; i++)
+            if ((activity.tvSelectArr[i].getText().toString()).equalsIgnoreCase((activity.word.wordName.charAt(iAnswer) + "")) && activity.tvSelectArr[i].isClickable()) {
+                iSelect = i;
+                break;
             }
-        }
         activity.tvAnswerArr[iAnswer].setClickable(false);
         AnimatorSet animatorSet = setAnimTranslateSortGameXY(activity.tvSelectArr[iSelect], activity.selectTranslate[iSelect], activity.answerTranslate[iAnswer]);
         activity.tvAnswerArr[iAnswer].setTextColor(Color.WHITE);
@@ -255,7 +248,7 @@ public class SortGamePresenter {
                 animatorSet = setAnimTranslateSortGameXYBack(activity.tvSelectArr[activity.answerTranslate[i].posionRelative]);
             }
         }
-        if (coin >= 20 && activity.hintCount < activity.wordLength) {
+        if (currentAccount.coin >= 20) {
             if (animatorSet != null)
                 animatorSet.addListener(new AnimatorListenerAdapter() {
                     @Override
@@ -278,8 +271,9 @@ public class SortGamePresenter {
                         activity.tvBuyAction.setClickable(true);
                     }
                 });
-            writeUser(activity, timeCount, coin - 20, lvSortWord, wordNameCurrent, isNextLv);
-            activity.binding.setUserCoin(String.format("%d %s", coin, activity.getString(R.string.coin)));
+            currentAccount.coin-=20;
+            updateAccount(activity, currentAccount);
+            activity.binding.setUserCoin(String.format("%d %s", currentAccount.coin, activity.getString(R.string.coin)));
         } else {
             Toast.makeText(activity, activity.getString(R.string.not_enough_money), Toast.LENGTH_SHORT).show();
         }

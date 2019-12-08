@@ -36,13 +36,8 @@ import java.util.Random;
 
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimFloatToTop;
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleXY;
-import static com.hoangpro.amazingwords.sqlite.User.coin;
-import static com.hoangpro.amazingwords.sqlite.User.isNextLv;
-import static com.hoangpro.amazingwords.sqlite.User.loadUser;
-import static com.hoangpro.amazingwords.sqlite.User.lvSortWord;
-import static com.hoangpro.amazingwords.sqlite.User.timeCount;
-import static com.hoangpro.amazingwords.sqlite.User.wordNameCurrent;
-import static com.hoangpro.amazingwords.sqlite.User.writeUser;
+import static com.hoangpro.amazingwords.morefunc.MySession.currentAccount;
+import static com.hoangpro.amazingwords.morefunc.MySession.updateAccount;
 
 public class SortWordActivity extends BaseActivity implements SortWordGameView {
 
@@ -65,7 +60,7 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
     public int hintCount;
     public boolean isFirst = true;
     public ActivitySortWordBinding binding;
-    public boolean hasFocus=false;
+    public boolean hasFocus = false;
     SortGamePresenter presenter;
 
     @Override
@@ -84,7 +79,7 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        this.hasFocus=hasFocus;
+        this.hasFocus = hasFocus;
         if (hasFocus) {
             if (isFirst) {
                 for (int i = 0; i < wordLength; i++) {
@@ -134,11 +129,14 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
                 openActivity(MainActivity.class, true);
                 overridePendingTransition(0, 0);
             }
         });
-        tvResult.setText(String.format("%s: %d", getString(R.string.total_level), lvSortWord));
+        tvResult.setText(String.format("%s: %d", getString(R.string.total_level), currentAccount.lvSortWord));
+        currentAccount.lvSortWord = 1;
+        currentAccount.timeCount = 30;
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.play(setAnimScaleXY(tvTitle)).before(setAnimFloatToTop(tvResult));
         animatorSet.start();
@@ -149,6 +147,7 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
         alertDialog.setCancelable(false);
         dialog = alertDialog;
         alertDialog.show();
+        updateAccount(this, currentAccount);
     }
 
     @Override
@@ -157,8 +156,9 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
         Random random = new Random();
         final int coinReward = 5 + random.nextInt(5);
         final int timeReward = 15 + random.nextInt(15);
-
-        writeUser(this, timeCount + timeReward, coin + coinReward, lvSortWord + 1, null, true);
+        currentAccount.timeCount += timeReward;
+        currentAccount.coin += coinReward;
+        currentAccount.lvSortWord += 1;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = LayoutInflater.from(SortWordActivity.this).inflate(R.layout.dialog_win, null, false);
@@ -231,19 +231,17 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog = alertDialog;
         alertDialog.show();
+        updateAccount(this, currentAccount);
     }
 
     @Override
     public void getData() {
         appDatabase = AppDatabase.getInstance(this);
         dao = appDatabase.getDAO();
-        loadUser(this);
-        binding.setLvCurrent(String.format("%s %d", getString(R.string.level), lvSortWord));
-        if (isNextLv) {
-            word = dao.getRandomWord();
-        } else {
-            word = dao.getWordByWordName(wordNameCurrent);
-        }
+        binding.setLvCurrent(String.format("%s %d", getString(R.string.level), currentAccount.lvSortWord));
+
+        word = dao.getRandomWord();
+
         wordLength = word.wordName.length();
         wordArr = new String[wordLength];
         tvAnswerArr = new TextView[wordLength];
@@ -258,11 +256,16 @@ public class SortWordActivity extends BaseActivity implements SortWordGameView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (timerGame!=null)
+        if (timerGame != null)
             timerGame.cancel();
-        hasFocus=false;
+        hasFocus = false;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        updateAccount(this, currentAccount);
+    }
 
     public void pauseGame(View view) {
         if (timerGame != null)

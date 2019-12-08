@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "262364069844",
+    "firebase_url": "https://amazingwords-2d64d.firebaseio.com",
+    "project_id": "amazingwords-2d64d",
+    "storage_bucket": "amazingwords-2d64d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262364069844:android:9009fdc0bf9cec7be0a041",
+        "android_client_info": {
+          "package_name": "com.hoangpro.amazingwords"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262364069844-3i3h54gknonsdotohvmqkd3aqnsvjqip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8YpvQ67SP7ZzfM_fbkOCLl6fvIK-tEk8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262364069844-3i3h54gknonsdotohvmqkd3aqnsvjqip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

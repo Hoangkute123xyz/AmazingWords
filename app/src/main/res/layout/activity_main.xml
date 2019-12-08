@@ -18,6 +18,8 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:scaleX="0.7"
+            android:scaleY="0.7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_logo_white" />
@@ -101,6 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/btnPlay" />
 
     <Button
+        android:onClick="actionLogout"
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

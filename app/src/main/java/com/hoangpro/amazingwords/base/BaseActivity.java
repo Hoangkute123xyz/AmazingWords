@@ -5,6 +5,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class BaseActivity extends AppCompatActivity {
     public void openActivity(Class target,Boolean isFinish){
 
