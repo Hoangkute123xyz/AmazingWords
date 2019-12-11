@@ -2,7 +2,9 @@ package com.hoangpro.amazingwords.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -68,5 +70,15 @@ public class MainActivity extends BaseActivity {
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void openFbLink(View view) {
+        try{
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/114046333391366/"));
+            startActivity(intent);
+        }catch (Exception e){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://m.facebook.com/amzwofficial/"));
+            startActivity(intent);
+        }
     }
 }

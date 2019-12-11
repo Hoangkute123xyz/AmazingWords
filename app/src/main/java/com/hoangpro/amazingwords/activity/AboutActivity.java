@@ -1,5 +1,7 @@
 package com.hoangpro.amazingwords.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -30,5 +32,15 @@ public class AboutActivity extends BaseActivity {
     public void onBackPressed() {
         super.onBackPressed();
         actionBack(null);
+    }
+
+    public void openFbLink(View view) {
+        try{
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/114046333391366/"));
+            startActivity(intent);
+        }catch (Exception e){
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://m.facebook.com/amzwofficial/"));
+            startActivity(intent);
+        }
     }
 }
