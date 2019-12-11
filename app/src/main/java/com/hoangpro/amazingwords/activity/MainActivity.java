@@ -1,5 +1,8 @@
 package com.hoangpro.amazingwords.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,9 +49,24 @@ public class MainActivity extends BaseActivity {
     }
 
     public void actionLogout(View view) {
-        LoginManager.getInstance().logOut();
-        FirebaseAuth.getInstance().signOut();
-        openActivity(LoginActivity.class, true);
-        overridePendingTransition(0, 0);
+        AlertDialog.Builder builder= new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.logout_confirm)).setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences sharedPreferences = getSharedPreferences("UserData", MODE_PRIVATE);
+                sharedPreferences.edit().clear().apply();
+                LoginManager.getInstance().logOut();
+                FirebaseAuth.getInstance().signOut();
+                openActivity(LoginActivity.class, true);
+                overridePendingTransition(0, 0);
+            }
+        }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

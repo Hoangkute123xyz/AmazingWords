@@ -28,4 +28,7 @@
     <string name="not_enough_money">Không đủ tiền</string>
     <string name="facebook_app_id">517373318988966</string> <string name="fb_login_protocol_scheme">fb517373318988966</string>
     <string name="login_failed">Đăng nhập thất bại</string>
+    <string name="logout_confirm">Bạn có muốn đăng xuất</string>
+    <string name="accept">Đồng ý</string>
+    <string name="cancel">Thoát</string>
 </resources>

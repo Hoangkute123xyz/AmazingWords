@@ -7,9 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,13 +28,10 @@ import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.adapter.RankingUserAdapter;
 import com.hoangpro.amazingwords.base.BaseActivity;
 import com.hoangpro.amazingwords.model.Account;
-import com.hoangpro.amazingwords.model.Top;
 import com.hoangpro.amazingwords.morefunc.CircleImage;
-import com.hoangpro.amazingwords.sqlite.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleXY;
@@ -69,12 +64,13 @@ public class RankActivity extends BaseActivity {
         initView();
         tvName.setText(currentAccount.name);
         Picasso.get().load("https://graph.facebook.com/" + currentAccount.idFacebook + "/picture?type=large").transform(new CircleImage()).into(imgAvatar);
-        tvCoin.setText(String.format("%d %s", currentAccount.coin,getString(R.string.coin)));
+        tvCoin.setText(String.format("%d %s", currentAccount.coin, getString(R.string.coin)));
         setAnimforView();
     }
-    private void getData(){
-        list=new ArrayList<>();
-        adapter=new RankingUserAdapter(this, list);
+
+    private void getData() {
+        list = new ArrayList<>();
+        adapter = new RankingUserAdapter(this, list);
         rvRank.setAdapter(adapter);
         rvRank.setLayoutManager(new LinearLayoutManager(this));
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("accounts");
@@ -82,16 +78,16 @@ public class RankActivity extends BaseActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Account account = snapshot.getValue(Account.class);
-                    list.add(0,account);
-                    if (account.idFacebook.equalsIgnoreCase(currentAccount.idFacebook)){
-                        posAccount=list.size();
+                    list.add(0, account);
+                    if (account.idFacebook.equalsIgnoreCase(currentAccount.idFacebook)) {
+                        posAccount = list.size();
                     }
                 }
-                tvRank.setText((list.size()-posAccount+1)+"");
-                if(list.size()>100){
-                    list=list.subList(0, 99);
+                tvRank.setText((list.size() - posAccount + 1) + "");
+                if (list.size() > 100) {
+                    list = list.subList(0, 99);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -102,13 +98,15 @@ public class RankActivity extends BaseActivity {
             }
         });
     }
+
     private Dialog dialog;
+
     private void showLoading() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null,false));
+        builder.setView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null, false));
         AlertDialog alertDialog = builder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog=alertDialog;
+        dialog = alertDialog;
         alertDialog.show();
     }
 
