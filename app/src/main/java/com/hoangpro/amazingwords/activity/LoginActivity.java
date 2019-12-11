@@ -111,7 +111,6 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    dialog.dismiss();
                     GraphRequest graphRequest = GraphRequest.newMeRequest(token, new GraphRequest.GraphJSONObjectCallback() {
                         @Override
                         public void onCompleted(JSONObject object, GraphResponse response) {
@@ -134,13 +133,14 @@ public class LoginActivity extends BaseActivity {
                                                 Log.e("isExistData", currentAccount.toString());
                                                 User.writeUser(LoginActivity.this);
                                             }
+                                            dialog.dismiss();
                                             openActivity(MainActivity.class, true);
                                             overridePendingTransition(0, 0);
                                         }
 
                                         @Override
                                         public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                            dialog.dismiss();
                                         }
                                     });
                                 } catch (JSONException e) {
@@ -156,6 +156,7 @@ public class LoginActivity extends BaseActivity {
 
                 } else {
                     Toast.makeText(LoginActivity.this, getString(R.string.login_failed), Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
                 }
             }
         });

@@ -186,7 +186,7 @@ public class FindWordGameActivity extends BaseActivity implements FindWordGameVi
 
     @Override
     public void returnDivCoin() {
-        tvDivCoin.setText(String.format("- 50 %s", getString(R.string.coin)));
+        tvDivCoin.setText(String.format("- 20 %s", getString(R.string.coin)));
         tvDivCoin.setTextSize(16);
         tvDivCoin.setTextColor(getResources().getColor(R.color.yellow));
         setAnimShowAnswer(tvDivCoin);
