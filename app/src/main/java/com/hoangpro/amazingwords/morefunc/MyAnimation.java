@@ -171,7 +171,7 @@ public class MyAnimation {
         view.setTranslationY(view.getTranslationY() - 250f);
         view.setAlpha(0);
         ObjectAnimator objectAnimatorToTOp = ObjectAnimator.ofFloat(view, "TranslationY", 1f);
-        objectAnimatorToTOp.setDuration(300);
+        objectAnimatorToTOp.setDuration(400);
 
         ObjectAnimator objectAnimatorAlpha = ObjectAnimator.ofFloat(view, "Alpha", 1f);
         objectAnimatorAlpha.setDuration(250);

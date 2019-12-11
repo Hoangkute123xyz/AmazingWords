@@ -59,7 +59,7 @@ public class RankingUserAdapter extends RecyclerView.Adapter<RankHolder> {
         Picasso.get().load("https://graph.facebook.com/" + account.idFacebook + "/picture?type=large").transform(new CircleImage()).into(holder.imgAvt);
         holder.tvCoin.setText(String.format("%d %s", account.coin, context.getString(R.string.coin)));
         AnimatorSet animatorSet = setAnimFloatToTop(holder.itemView);
-        animatorSet.setStartDelay(position * 500);
+        animatorSet.setStartDelay(position * 200);
         animatorSet.start();
         switch (position) {
             case 0:
