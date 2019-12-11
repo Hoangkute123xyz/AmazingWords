@@ -3,23 +3,40 @@ package com.hoangpro.amazingwords.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.hoangpro.amazingwords.R;
 import com.hoangpro.amazingwords.adapter.RankingUserAdapter;
 import com.hoangpro.amazingwords.base.BaseActivity;
+import com.hoangpro.amazingwords.model.Account;
 import com.hoangpro.amazingwords.model.Top;
 import com.hoangpro.amazingwords.morefunc.CircleImage;
+import com.hoangpro.amazingwords.sqlite.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static com.hoangpro.amazingwords.morefunc.MyAnimation.setAnimScaleXY;
@@ -35,6 +52,8 @@ public class RankActivity extends BaseActivity {
     private ImageView imgAvatar;
     private TextView tvName;
     private TextView tvRank;
+    private List<Account> list;
+    private int posAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +72,45 @@ public class RankActivity extends BaseActivity {
         tvCoin.setText(String.format("%d %s", currentAccount.coin,getString(R.string.coin)));
         setAnimforView();
     }
+    private void getData(){
+        list=new ArrayList<>();
+        adapter=new RankingUserAdapter(this, list);
+        rvRank.setAdapter(adapter);
+        rvRank.setLayoutManager(new LinearLayoutManager(this));
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("accounts");
+        Query query = reference.orderByChild("coin");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Account account = snapshot.getValue(Account.class);
+                    list.add(0,account);
+                    if (account.idFacebook.equalsIgnoreCase(currentAccount.idFacebook)){
+                        posAccount=list.size();
+                    }
+                }
+                tvRank.setText((list.size()-posAccount+1)+"");
+                if(list.size()>100){
+                    list=list.subList(0, 99);
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private Dialog dialog;
+    private void showLoading() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(LayoutInflater.from(this).inflate(R.layout.dialog_loading, null,false));
+        AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog=alertDialog;
+        alertDialog.show();
+    }
 
     @Override
     public void onBackPressed() {
@@ -66,13 +124,7 @@ public class RankActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                List<Top> list = new ArrayList<>();
-                list.add(new Top(R.drawable.gate, "Bill Gate", 23000));
-                list.add(new Top(R.drawable.mark, "Mark Zuckerberg", 17300));
-                list.add(new Top(R.drawable.trump, "Donald Trump", 10200));
-                adapter = new RankingUserAdapter(RankActivity.this, list);
-                rvRank.setAdapter(adapter);
-                rvRank.setLayoutManager(new LinearLayoutManager(RankActivity.this));
+                getData();
             }
         });
         animatorSet.start();

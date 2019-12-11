@@ -13,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hoangpro.amazingwords.R;
-import com.hoangpro.amazingwords.model.Top;
+import com.hoangpro.amazingwords.model.Account;
+import com.hoangpro.amazingwords.morefunc.CircleImage;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,9 +39,9 @@ class RankHolder extends RecyclerView.ViewHolder {
 
 public class RankingUserAdapter extends RecyclerView.Adapter<RankHolder> {
     private Context context;
-    private List<Top> list;
+    private List<Account> list;
 
-    public RankingUserAdapter(Context context, List<Top> list) {
+    public RankingUserAdapter(Context context, List<Account> list) {
         this.context = context;
         this.list = list;
     }
@@ -52,14 +54,14 @@ public class RankingUserAdapter extends RecyclerView.Adapter<RankHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RankHolder holder, int position) {
-        Top top = list.get(position);
-        holder.imgAvt.setImageResource(top.getImgAvatar());
-        holder.tvName.setText(top.getName());
-        holder.tvCoin.setText(String.format("%d %s", top.getCoin(),context.getString(R.string.coin)));
+        Account account = list.get(position);
+        holder.tvName.setText(account.name);
+        Picasso.get().load("https://graph.facebook.com/" + account.idFacebook + "/picture?type=large").transform(new CircleImage()).into(holder.imgAvt);
+        holder.tvCoin.setText(String.format("%d %s", account.coin, context.getString(R.string.coin)));
         AnimatorSet animatorSet = setAnimFloatToTop(holder.itemView);
-        animatorSet.setStartDelay(position*500);
+        animatorSet.setStartDelay(position * 500);
         animatorSet.start();
-        switch (position){
+        switch (position) {
             case 0:
                 holder.itemView.setBackgroundResource(R.drawable.bg_top1);
                 holder.tvName.setTextColor(Color.parseColor("#FFDF65"));
@@ -73,6 +75,9 @@ public class RankingUserAdapter extends RecyclerView.Adapter<RankHolder> {
                 holder.imgRank.setImageResource(R.drawable.no3);
                 holder.itemView.setBackgroundResource(R.drawable.bg_top3);
                 holder.tvName.setTextColor(Color.parseColor("#482F22"));
+                break;
+            default:
+                holder.imgRank.setVisibility(View.GONE);
                 break;
         }
     }
